@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+	<constant name="struts.multipart.saveDir" value="/tmp"/>
+	<!-- 先配置包结构 -->
+	<package name="crm" extends="struts-default" namespace="/">
+		<!-- 是由Struts2框架自己来管理Action -->
+		<!-- <action name="customer_*" class="com.lvda.web.action.CustomerAction" method="{1}"/> -->
+		
+		<!-- 配置拦截器 -->
+		<interceptors>
+			<interceptor name="userInterceptor" class="com.lvda.web.interceptor.UserInterceptor"/>
+		</interceptors>
+		<global-results>
+			<result name="login" type="redirect">/login.jsp</result>
+		</global-results>
+		<!-- 配置客户的Action，如果Action由Spring框架来管理，class标签上只需要编写ID值就OK -->
+		<action name="new_*" class="newsAction" method="{1}">
+			<result name="page">/web/2new.jsp</result>
+			<result name="page1">/news/list.jsp</result>
+			<result name="page3">/web/10newsList.jsp</result>
+			<result name="find">/web/3newsDetails.jsp</result>
+			<result name="save"  type="redirect">/news/add.jsp</result>
+			<result name="initUpdate" type="redirect">/news/edit.jsp</result>
+			<result name="delete" type="redirectAction">new_findByPage1.action</result>
+			<result name="update" type="redirectAction">new_findByPage1.action</result>
+			<interceptor-ref name="userInterceptor">
+				<param name="excludeMethods">findByPage,findByPage2,findByPage3,findById</param>
+			</interceptor-ref>
+			<!-- 引入默认的拦截器 -->
+			<interceptor-ref name="defaultStack">
+				<!-- 决定上传文件的类型 -->
+				<param name="fileUpload.allowedExtensions">.jpg,.png,.gif</param>
+			</interceptor-ref>
+		</action>	
+		
+		<action name="user_*" class="userAction" method="{1}">
+			<result name="loginOK" type="redirect">/index.jsp</result>
+			<interceptor-ref name="userInterceptor">
+				<param name="excludeMethods">login,delete</param>
+			</interceptor-ref>
+			<interceptor-ref name="defaultStack"/>
+		</action>
+		
+		<action name="link_*" class="linkAction" method="{1}">
+			<result name="add">/news/add.jsp</result>
+		</action>
+		
+		<action name="notice_*" class="noticeAction" method="{1}">
+			<result name="save" type="redirect">/notice/add.jsp</result>
+			<result name="find">/web/5noticeBoard.jsp</result>
+			<result name="page1">/notice/list.jsp</result>
+			<result name="page2">/web/9noticeList.jsp</result>
+			<result name="initUpdate" type="redirect">/notice/edit.jsp</result>
+			<result name="update" type="redirectAction">notice_findByPage1.action</result>
+			<result name="delete" type="redirectAction">notice_findByPage1.action</result>
+		</action>
+		<action name="product_*" class="productAction" method="{1}">
+			<result name="save" type="redirect">/product/add.jsp</result>
+			<result name="page1">/product/list.jsp</result>
+			<result name="find">/web/7productIntroduction.jsp</result>
+			<result name="delete" type="redirectAction">product_findByPage1.action</result>
+			<result name="initUpdate" type="redirect">product/edit.jsp</result>
+			<result name="update" type="redirectAction">product_findByPage1.action</result>
+		</action>
+	</package>
+    
+</struts>
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context.xsd
+	http://www.springframework.org/schema/aop
+	http://www.springframework.org/schema/aop/spring-aop.xsd
+	http://www.springframework.org/schema/tx 
+	http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+	<!-- 先配置C3P0的连接池 -->
+	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+		<property name="driverClass" value="com.mysql.jdbc.Driver" />
+		<property name="jdbcUrl" value="jdbc:mysql:///lvda" />
+		<property name="user" value="root" />
+		<property name="password" value="root" />
+	</bean>
+
+	<!-- LocalSessionFactoryBean加载配置文件 -->
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+		<!-- 先加载连接池 -->
+		<property name="dataSource" ref="dataSource" />
+		<!-- 加载方言，加载可选 -->
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.format_sql">true</prop>
+				<prop key="hibernate.hbm2ddl.auto">update</prop>
+			</props>
+		</property>
+
+		<!-- 引入映射的配置文件 -->
+		<property name="mappingResources">
+			<list>
+				<value>com/lvda/domain/Notice.hbm.xml</value>
+				<value>com/lvda/domain/Link.hbm.xml</value>
+				<value>com/lvda/domain/News.hbm.xml</value>
+				<value>com/lvda/domain/User.hbm.xml</value>
+				<value>com/lvda/domain/Product.hbm.xml</value>
+			</list>
+		</property>
+	</bean>
+
+	<!-- 先配置平台事务管理器 -->
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+	<!-- 开启事务的注解 -->
+	<tx:annotation-driven transaction-manager="transactionManager" />
+
+	<!-- 配置客户模块 -->
+	<!-- 强调：以后配置Action，必须是多例的 -->
+	<bean id="newsAction" class="com.lvda.web.action.NewsAction"
+		scope="prototype">
+		<property name="newsService" ref="newsService" />
+	</bean>
+
+	<bean id="newsService" class="com.lvda.service.NewsServiceImpl">
+		<property name="newsDao" ref="newsDao" />
+	</bean>
+
+	<!-- 以后：Dao都需要继承HibernateDaoSupport，注入sessionFactory -->
+	<bean id="newsDao" class="com.lvda.dao.NewsDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+	<!-- 配置用户模块 -->
+	<bean id="userAction" class="com.lvda.web.action.UserAction"
+		scope="prototype">
+		<property name="userService" ref="userService" />
+	</bean>
+
+	<bean id="userService" class="com.lvda.service.UserServiceImpl">
+		<property name="userDao" ref="userDao" />
+	</bean>
+
+	<bean id="userDao" class="com.lvda.dao.UserDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<!-- 配置链接模块 -->
+	<bean id="linkAction" class="com.lvda.web.action.LinkAction"
+		scope="prototype">
+		<property name="linkService" ref="linkService" />
+	</bean>
+
+	<bean id="linkService" class="com.lvda.service.LinkServiceImpl">
+		<property name="linkDao" ref="linkDao" />
+	</bean>
+
+	<bean id="linkDao" class="com.lvda.dao.LinkDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<!-- 配置notice模块 -->
+	<bean id="noticeAction" class="com.lvda.web.action.NoticeAction"
+		scope="prototype">
+		<property name="noticeService" ref="noticeService" />
+	</bean>
+
+	<bean id="noticeService" class="com.lvda.service.NoticeServiceImpl">
+		<property name="noticeDao" ref="noticeDao" />
+	</bean>
+
+	<bean id="noticeDao" class="com.lvda.dao.NoticeDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<!-- 配置Product模块 -->
+	<bean id="productAction" class="com.lvda.web.action.ProductAction"
+		scope="prototype">
+		<property name="productService" ref="productService" />
+	</bean>
+
+	<bean id="productService" class="com.lvda.service.ProductServiceImpl">
+		<property name="productDao" ref="productDao" />
+	</bean>
+
+	<bean id="productDao" class="com.lvda.dao.ProductDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+</beans>
+
+
+
+
+
+
+
+
+
+
+
+

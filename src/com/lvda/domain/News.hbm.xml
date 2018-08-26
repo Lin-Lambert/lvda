@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+    
+<hibernate-mapping>
+	
+	<class name="com.lvda.domain.News" table="news">
+		<id name="nt_id" column="nt_id">
+			<generator class="native"/>
+		</id>
+		<property name="nt_headline1" column="nt_headline1"/>
+		<property name="nt_headline2" column="nt_headline2"/>
+		<property name="nt_smallheadline1" column="nt_smallheadline1"/>
+		<property name="nt_smallheadline2" column="nt_smallheadline2"/>
+		<property name="nt_top" column="nt_top"/>
+		<property name="nt_content" column="nt_content"/>
+		<property name="nt_footer" column="nt_footer"/>
+		<property name="nt_time" column="nt_time"/>
+		<property name="nt_img1" column="nt_img1"/>
+		<property name="nt_img2" column="nt_img2"/>
+		<property name="nt_newsdetail" column="nt_newsdetail"/>
+		
+	</class>
+	
+</hibernate-mapping>    

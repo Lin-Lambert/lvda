@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+    
+<hibernate-mapping>
+	
+	<class name="com.lvda.domain.Product" table="product">
+		<id name="pro_id" column="pro_id">
+			<generator class="native"/>
+		</id>
+	
+		<property name="pro_name" column="pro_name"/>
+		<property name="pro_time" column="pro_time"/>
+		<property name="pro_img" column="pro_img"/>
+		<property name="pro_introduce" column="pro_introduce"/>
+	</class>
+	
+</hibernate-mapping>    

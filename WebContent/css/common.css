@@ -1,0 +1,75 @@
+/*字样1*/
+.f1{
+	font: 14px "幼体";
+	color: #0043A2;	
+}
+/*字样2*/
+.f2{
+	font: 12.5px "幼体";
+	color: black;
+	line-height: 1.8;
+}
+/*字样3*/
+.f3{
+	font: 4px "幼体";
+	color: black;
+}
+/**/
+.s{
+	text-overflow: ellipsis;
+	display: -webkit-box;
+	-webkit-line-clamp: 3;
+	-webkit-box-orient: vertical;
+	word-wrap: break-word;
+	overflow: hidden;
+}
+/*超链接样式*/
+.l1:link,.l2:visited{
+	color: black;
+	text-decoration: none;
+}
+/*content_w*/
+.content_w{
+	width: 100%;
+}
+
+.footer1{
+	background: #4B97FC;
+}
+.footer1 p{
+	font: 11px "幼体";
+	color: #FFFFFF;
+}
+.footer1 div p:first-of-type{
+	/* margin-top: 35px; */
+}
+.footer1 div input{
+	float: left;
+}
+.footer1 form input:first-of-type{
+	height: 24px;
+}
+.footer1 form div{
+	/* margin-top: 32px; */
+}
+/*超链接样式*/
+.nav1 a:link,.nav1 a:visited{
+	color: black;
+	text-decoration: none;
+}
+/*nav*/
+.nav1{
+	/*background: yellow;*/
+	font-size: 14.5px;
+	display: inline-block;
+	padding: 10px 0 10px 0;
+}
+.nav1 td{
+	width:140px;
+	text-align: center;
+}
+.nav1 a:hover{
+	color: #0043A2;
+	border-bottom: solid 3px;
+	padding-bottom: 20px;
+}

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+    
+<hibernate-mapping>
+	
+	<class name="com.lvda.domain.Notice" table="notice">
+		<id name="notice_id" column="notice_id">
+			<generator class="native"/>
+		</id>
+		<property name="notice_title" column="notice_title"/>
+		<property name="notice_time" column="notice_time"/>
+		<property name="notice_detail" column="notice_detail"/>
+	</class>
+	
+</hibernate-mapping>    
